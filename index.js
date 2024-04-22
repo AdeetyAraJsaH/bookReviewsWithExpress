@@ -1,9 +1,15 @@
-const express = require('express');
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
-const session = require('express-session')
-const customer_routes = require('./router/auth_users.js').authenticated;
-const genl_routes = require('./router/general.js').general;
+import express from 'express'
+// const express = require('express');
+import dotenv from 'dotenv';
+dotenv.config();
+// const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken'
+// const session = require('express-session')
+import session from 'express-session'
+// const customer_routes = require('./router/auth_users.js').authenticated;
+import regd_users from './router/auth_users.js';
+// const genl_routes = require('./router/general.js').general;
+import { public_users } from './router/general.js'
 
 const app = express();
 
@@ -35,7 +41,7 @@ app.use("/customer/auth", async function auth(req, res, next) {
 
 const PORT = process.env.PORT || 3000;
 
-app.use("/api/customer", customer_routes);
-app.use("/api", genl_routes);
+app.use("/api/customer", regd_users);
+app.use("/api", public_users);
 
 app.listen(PORT, () => console.log(`Server is running at PORT:${PORT}`));
