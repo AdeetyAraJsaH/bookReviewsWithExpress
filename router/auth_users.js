@@ -1,17 +1,21 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-let books = require("./booksdb.js");
-const regd_users = express.Router();
+// const express = require('express');
+import { Router } from 'express';
+// const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken'
+// let books = require("./booksdb.js");
+import books from './booksdb.js';
 
-let users = [];
+const regd_users = Router();
 
-const isValid = (username) => { //returns boolean
+export let users = [];
+
+export const isValid = (username) => { //returns boolean
   let userwithname = users.filter(user => user.username === username);
   if (userwithname.length > 0) return true;
   else return false;
 }
 
-const authenticatedUser = (username, password) => {//return boolean
+export const authenticatedUser = async (username, password) => {//return boolean
   let validUsers = users.filter(user => user.username === username && user.password === password);
   if (validUsers.length > 0) return true;
   else throw new Error(JSON.stringify({
@@ -70,6 +74,4 @@ regd_users.delete("/auth/review/:isbn", async (req, res) => {
   }
 })
 
-module.exports.authenticated = regd_users;
-module.exports.isValid = isValid;
-module.exports.users = users;
+export default regd_users;

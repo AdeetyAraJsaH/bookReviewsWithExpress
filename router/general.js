@@ -1,8 +1,13 @@
-const express = require('express');
-let books = require("./booksdb.js");
-let isValid = require("./auth_users.js").isValid;
-let users = require("./auth_users.js").users;
-const public_users = express.Router();
+// const express = require('express');
+import {Router} from 'express'
+// let books = require("./booksdb.js");
+import books from './booksdb.js';
+// let isValid = require("./auth_users.js").isValid;
+import { isValid } from './auth_users.js';
+// let users = require("./auth_users.js").users;
+import { users } from './auth_users.js';
+
+export const public_users =Router();
 
 async function getBooksByAuthor(authorName) {// use async-await
   const filteredBooks = {};
@@ -112,4 +117,4 @@ public_users.get('/review/:isbn', async function (req, res) {// use async-await
   }
 });
 
-module.exports.general = public_users;
+// export default public_users;
